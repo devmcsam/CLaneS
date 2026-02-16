@@ -2,7 +2,8 @@
 
 ## Overview
 
-CLaneS (C Lane Scalar) is a blas implementation done in C. The goal of this project is to provide an easily optimizable
+CLaneS (C Lane Subprograms) is a blas implementation done in C. The goal of this project is to provide an easily
+optimizable
 blas implementation in C23. Instead of using manual assembly, CLaneS uses compiler intrinsics with a scalar fallback.
 CLaneS does one cpuid call at program startup and then saves it to an internal variable. It then secretly passes this
 struct to each function (so you don't deal with it every time). Then each function looks at the struct and uses the most
