@@ -27,7 +27,11 @@ add_library(CLaneS STATIC src/clanes.c
         include/level1/level1.h
         include/level2/level2.h
         include/level3/level3.h
-        src/clanes_internal.h)
+        src/clanes_internal.h
+        include/clanes_tg.h
+        include/level1/level1_tg.h
+        include/level2/level2_tg.h
+        include/level3/level3_tg.h)
 
 target_include_directories(CLaneS PUBLIC ${PROJECT_SOURCE_DIR}/include)
 target_include_directories(CLaneS PRIVATE ${PROJECT_SOURCE_DIR}/src)
