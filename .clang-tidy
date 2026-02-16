@@ -1,0 +1,27 @@
+Checks: >
+  -*,
+
+  clang-analyzer-*,
+
+
+  bugprone-*,
+
+  cert-*,
+
+  performance-*,
+
+  readability-*,
+
+  -modernize-*,
+
+  -clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling,
+  -cert-err33-c,
+  -cert-err34-c
+
+WarningsAsErrors: '*'
+
+HeaderFilterRegex: 'src/.*'
+
+CheckOptions:
+  - key: readability-implicit-bool-conversion.AllowIntegerConditions
+    value: 'false'

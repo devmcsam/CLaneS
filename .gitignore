@@ -1,0 +1,32 @@
+/*
+!/.gitignore
+!/CMakeLists.txt
+!/**/*.c
+!/**/*.h
+!/include
+!/src
+!CMakePresets.json
+!LICENSE
+!README.md
+!.clangd
+!.clang-format
+!.clang-tidy
+
+# These are technically redundant since we have to white list everything
+# but they serve as safety nets in case a white list thing gets to broad in the future
+cmake-build-*/
+build/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dll
+*.exe
+*.out
+*.app
