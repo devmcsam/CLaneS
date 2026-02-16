@@ -31,7 +31,10 @@ add_library(CLaneS STATIC src/clanes.c
         include/clanes_tg.h
         include/level1/level1_tg.h
         include/level2/level2_tg.h
-        include/level3/level3_tg.h)
+        include/level3/level3_tg.h
+        src/level1/dot/sdot.c
+        src/level1/dot/ddot.c
+        src/kernels/level1/dot/sdot/sdot_avx512_fma_ker.h)
 
 target_include_directories(CLaneS PUBLIC ${PROJECT_SOURCE_DIR}/include)
 target_include_directories(CLaneS PRIVATE ${PROJECT_SOURCE_DIR}/src)

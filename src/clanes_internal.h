@@ -45,7 +45,7 @@
 
 // Useful compound masks
 #define CLANES_CPU_AVX2_FMA   (CLANES_CPU_AVX2   | CLANES_CPU_FMA)
-#define CLANES_CPU_AVX512_FMA (CLANES_CPU_AVX512F | CLANES_CPU_FMA)
+#define CLANES_CPU_AVX512_FMA (CLANES_CPU_AVX512_F | CLANES_CPU_FMA)
 
 // Widest usable SIMD tier
 typedef enum {
@@ -71,6 +71,7 @@ extern clanes_cpu_info g_clanes_cpu;
 
 // cpu target attribute helpers
 #define CLANES_TARGET_DEFAULT    __attribute__((target("default")))
+#define CLANES_TARGET_SSE        __attribute__((target("sse")))
 #define CLANES_TARGET_SSE2       __attribute__((target("sse2")))
 #define CLANES_TARGET_SSE41      __attribute__((target("sse4.1")))
 #define CLANES_TARGET_AVX        __attribute__((target("avx")))
@@ -120,5 +121,25 @@ extern clanes_cpu_info g_clanes_cpu;
 
 #define CLANES_RESOLVE_FALLBACK(fn)                                         \
     return (fn);
+
+/**
+ * CLANES_SELECT_DISPATCHER(name_prefix)
+ *   Standard resolver body for selecting a dispatcher.
+ *   Prioritizes FMA versions for AVX2 and AVX512.
+ */
+#define CLANES_SELECT_DISPATCHER(name_prefix) \
+switch (g_clanes_cpu.max_level) { \
+case CLANES_SIMD_AVX512: \
+if (CLANES_HAS(CLANES_CPU_FMA)) return CLANES_CAT(name_prefix, _avx512_fma); \
+return CLANES_CAT(name_prefix, _avx512); \
+case CLANES_SIMD_AVX2: \
+if (CLANES_HAS(CLANES_CPU_FMA)) return CLANES_CAT(name_prefix, _avx2_fma); \
+return CLANES_CAT(name_prefix, _avx2); \
+case CLANES_SIMD_AVX:    return CLANES_CAT(name_prefix, _avx);    \
+case CLANES_SIMD_SSE41:  return CLANES_CAT(name_prefix, _sse41);  \
+case CLANES_SIMD_SSE2:   return CLANES_CAT(name_prefix, _sse2);   \
+case CLANES_SIMD_SSE:    return CLANES_CAT(name_prefix, _sse);    \
+default:                 return CLANES_CAT(name_prefix, _scalar); \
+}
 
 #endif //CLANES_CLANES_INTERNAL_H
