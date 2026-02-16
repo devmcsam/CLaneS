@@ -23,9 +23,14 @@ option(CLANES_ENABLE_MARCH_NATIVE
         "Enable -march=native for this library, NOTE: With this enabled it is not a portable library"
         OFF)
 
-add_library(CLaneS STATIC src/clanes.c)
+add_library(CLaneS STATIC src/clanes.c
+        include/level1/level1.h
+        include/level2/level2.h
+        include/level3/level3.h
+        src/clanes_internal.h)
 
 target_include_directories(CLaneS PUBLIC ${PROJECT_SOURCE_DIR}/include)
+target_include_directories(CLaneS PRIVATE ${PROJECT_SOURCE_DIR}/src)
 
 include(CheckIPOSupported)
 check_ipo_supported(RESULT ipo_supported OUTPUT error)
